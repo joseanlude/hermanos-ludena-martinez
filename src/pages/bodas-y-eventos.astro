@@ -1,0 +1,989 @@
+---
+const siteTitle = "Bodas y eventos";
+
+const hermanos = [
+  { nombre: "José Andrés", href: "/joseandres", icon: "/iconojoseandres.png" },
+  { nombre: "Antonio", href: "/antonio", icon: "/iconoantonio.png" },
+  { nombre: "Carmen María", href: "/carmenmaria", icon: "/iconocarmenmaria.png" },
+];
+
+const bodasHref = "/bodas-y-eventos";
+
+// En esta página, el contacto vive en la home:
+const contactoHref = "/#contacto";
+
+// WhatsApp / correo para el bloque final “Contáctanos”
+const whatsappNumberPretty = "+34 659 47 41 25";
+const whatsappNumber = "34659474125"; // sin +
+const whatsappText = "Hola, me gustaría pedir información.";
+const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappText)}`;
+
+const emailTo = "joseanlude99@gmail.com";
+
+// LinkedIn Alba María (pedido explícitamente)
+const albaLinkedIn = "https://www.linkedin.com/in/alba-maria-lopez-marin-442147261/";
+
+// Galería: deja aquí tus vídeos/fotos.
+// - type: "youtube" -> usa "id" (ID del vídeo)
+// - type: "photo" -> usa "src"
+const galleryItems = [
+  // Ejemplos (rellena con tus IDs reales):
+  { type: "youtube", id: "dQw4w9WgXcQ", label: "Vídeo 1" },
+  { type: "youtube", id: "dQw4w9WgXcQ", label: "Vídeo 2" },
+  { type: "youtube", id: "dQw4w9WgXcQ", label: "Vídeo 3" },
+  { type: "youtube", id: "dQw4w9WgXcQ", label: "Vídeo 4" },
+  { type: "youtube", id: "dQw4w9WgXcQ", label: "Vídeo 5" },
+  // { type: "photo", src: "/alguna-foto.jpg", label: "Foto 1" },
+];
+
+// Para que se vea una rejilla bonita (dos filas de 3 en escritorio)
+const galleryInitialCount = 6;
+
+// Repertorio (placeholders; tú añadirás contenido en las listas)
+const repertorioTabs = [
+  { key: "sacra", label: "Música sacra" },
+  { key: "poprock", label: "Pop y rock" },
+  { key: "bs", label: "Banda sonora" },
+  { key: "otros", label: "Otros" },
+];
+
+const agrupaciones = [
+  {
+    title: "Piano solo / piano y voz masculina",
+    img: "/solopiano.jpg",
+    text: `
+      El piano es un instrumento muy versátil y que siempre está al gusto de todos,
+      piano solo es una buena opción para eventos simples y para hacer de fondo en todo tipo de actos.
+      Nuesto pianista se adapta a cualquier situación y género y puede incluso hacer de vocalista
+      si la ocasión invita y se le requiere.
+      `,
+    price: "Precio: 150€",
+  },
+  {
+    title: "Piano e instrumento",
+    img: "/pianoeinstrumento.jpg",
+    text: `
+      Este dúo instrumental es sencillo y elegante, perfecto para quienes tienen en mente un ambiente musical
+      decoroso y que no abarque mucha presencia. Nuestra agrupación más común es la de piano y violonchelo,
+      pero se pueden solicitar otros instrumentos.
+      `,
+    price: "Precio: 250€",
+  },
+  {
+    title: "Piano y voz",
+    img: "/pianoyvoz.jpg",
+    text:`
+      Este dúo aprovecha la gran capacidad armónica del piano y la indiscutible superioridad musical de la voz,
+      confeccionando un cóctel ideal para una experiencia musical que no pasa inadvertida ni deja a nadie indiferente.
+      `,
+    price: "Precio: 300€",
+  },
+  {
+    title: "Piano, instrumento y voz",
+    img: "/pianoinstrumentoyvoz.jpg",
+    text: `
+      El mandato rítmico del piano, el arrope instrumental de la cuerda y la destreza lírica de la voz conectan
+      en una música que viste y hermosea cualquier ceremonia. No es de extrañar que cada vez más gente apueste
+      por este cóctel musical con toda variedad de tonos y timbres.
+      `,
+    price: "Precio: 350€",
+  },
+];
+
+// Listas de repertorio
+const repertorio = {
+  sacra: [
+    "Ave María – J. S. Bach / C. Gounod",
+    "À Chloris - R. Hann",
+    "Aria para la cuerda de sol – J. S. Bach",
+    "Himn à l'amour - E. Piaf",
+    "Lascia ch'io pianga - G. F. Händel",
+    "Hasta mi final - Il Divo",
+    "Pur ti miro - C. Monteverdi",
+    "Ave María - F. Schubert",
+    "Por tí volaré - A. Bocelli",
+    "El dúo de las flores – L. Delibes",
+    "Pie Jesu – G. Fauré",
+    "Ave María - G. Caccini",
+    "Por una cabeza (tango) - C. Gardel",
+  ],
+  poprock: [
+    "Hallelujah - L. Cohen",
+    "Perfect – Ed Sheeran",
+    "I don't want to miss a thing - Aerosmith",
+    "All of Me – J. Legend",
+    "Die with a smile - L. Gaga y B. Mars",
+    "Viva la Vida – Coldplay",
+    "Your song - E. John",
+    "Fix You – Coldplay",
+    "Wildest dreams - Taylor Swift",
+    "Tatto - Loreen (versión adaptada)",
+  ],
+  bs: [
+    "A thousand years - Crepúsculo",
+    "Cinema Paradiso – E. Morricone",
+    "Memorias de África - J. Berry",
+    "Comptine d'un autre ete (Amélie) - Y. Tiersen",
+    "Now we are free (Gladiator) - G. Greenway",
+    "Maestro (The Holiday) - H. Zimmer",
+    "Caresse sur l'océan (Los niños del coro) - B. Coulais",
+
+  ],
+  otros: [ `
+    Estamos abiertos y, de hecho, promovemos escuchar propuestas. Nos abrimos a arreglar,
+    montar e interpretar cualquier pieza con la que hayas soñado.
+    `,
+  ],
+};
+
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{siteTitle}</title>
+    <meta
+      name="description"
+      content="Bodas y eventos: repertorio, ejemplos y agrupaciones de Hermanos Ludeña Martínez."
+    />
+  </head>
+
+  <body>
+    <!-- Barra lateral izquierda -->
+    <aside class="sidebar" aria-label="Navegación lateral">
+      <div class="sidebar-inner">
+        <a class="lm" href="/" aria-label="Inicio">
+          <img class="lm-img" src="/logolm.png" alt="LM" loading="eager" />
+        </a>
+
+        <nav class="iconnav" aria-label="Accesos">
+          {hermanos.map((h) => (
+            <a
+              class="iconlink"
+              href={h.href}
+              aria-label={`Ir a la página de ${h.nombre}`}
+              title={h.nombre}
+            >
+              <img src={h.icon} alt="" loading="eager" />
+            </a>
+          ))}
+
+          <div class="divider" role="separator" aria-hidden="true"></div>
+
+          <a
+            class="iconlink"
+            href={bodasHref}
+            aria-label="Ir a Bodas y eventos"
+            title="Bodas y eventos"
+            data-active="true"
+          >
+            <img src="/iconobodasyeventos.png" alt="" loading="lazy" />
+          </a>
+
+          <!-- En esta página, el contacto está en la home -->
+          <a class="iconlink" href={contactoHref} aria-label="Ir a Contacto" title="Contacto">
+            <img src="/iconocontacto.png" alt="" loading="lazy" />
+          </a>
+        </nav>
+
+        <div class="sidebar-foot" aria-hidden="true"></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <!-- Cabecera de página -->
+      <section class="section pagehead" aria-label="Bodas y eventos">
+        <!-- wrap-wide para aprovechar mejor el ancho en esta sección -->
+        <div class="wrap wrap-wide pagehead-wrap">
+          <header class="pagehead-title">
+            <h1 class="page-title">Bodas y eventos</h1>
+            <div class="rule" aria-hidden="true"></div>
+          </header>
+
+          <!-- Texto con foto a cada lado -->
+          <div class="intro" aria-label="Presentación">
+            <figure class="intro-media" aria-hidden="true">
+              <img src="/bodas-y-eventos1.jpg" alt="" loading="eager" />
+            </figure>
+
+            <div class="intro-text">
+              <p>
+                Nuestra pasión es la música, llevamos desde niños pegados a instrumentos, discos, partituras...
+                Disfrutamos con lo que hacemos y queremos compartirlo y contagiarlo.
+              </p>
+              <p>
+                Llevamos varios años tocando en celebraciones, tanto litúrgicas como civiles. Hemos hecho todo tipo de música:
+                naciendo en la clásica; pasando por el pop, el rock, el jazz; y llegando a la música más actual y diversa.
+              </p>
+              <p>
+                Tenemos formación profesional y superior, energía y muchas ganas de hacerlo bien. Nos entusiasmamos con cualquier
+                propuesta y nos atrevemos con lo que sea, tanto en repertorio. Atendemos cualquier consulta.
+              </p>
+            </div>
+
+            <figure class="intro-media" aria-hidden="true">
+              <img src="/bodas-y-eventos2.jpg" alt="" loading="eager" />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- Galería (sin título) -->
+      <section class="section gallery" aria-label="Galería">
+        <div class="wrap">
+          <div class="gallery-stack" data-gallery data-collapsed-count={galleryInitialCount}>
+            {galleryItems.map((item, i) => (
+              <article class="gitem" data-gitem={String(i)}>
+                {item.type === "youtube" ? (
+                  <div class="embed">
+                    <iframe
+                      src={`https://www.youtube-nocookie.com/embed/${item.id}`}
+                      title={item.label ?? `Vídeo ${i + 1}`}
+                      loading="lazy"
+                      referrerpolicy="strict-origin-when-cross-origin"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowfullscreen
+                    />
+                  </div>
+                ) : (
+                  <div class="photo">
+                    <img src={item.src} alt={item.label ?? `Imagen ${i + 1}`} loading="lazy" />
+                  </div>
+                )}
+              </article>
+            ))}
+          </div>
+
+          <div class="gallery-more">
+            <button class="more-link" type="button" data-gallery-toggle aria-expanded="false">
+              Ver más
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Repertorio de ejemplo -->
+      <section class="section repertorio" aria-label="Repertorio de ejemplo">
+        <div class="wrap">
+          <h2>Repertorio de ejemplo</h2>
+
+          <div class="tabs" data-tabs>
+            <div class="tabbar" role="tablist" aria-label="Categorías de repertorio">
+              {repertorioTabs.map((t, idx) => (
+                <button
+                  class="tab"
+                  type="button"
+                  role="tab"
+                  aria-selected={idx === 0 ? "true" : "false"}
+                  aria-controls={`panel-${t.key}`}
+                  id={`tab-${t.key}`}
+                  data-tab={t.key}
+                >
+                  {t.label}
+                </button>
+              ))}
+            </div>
+
+            <div class="tabpanels">
+              {repertorioTabs.map((t, idx) => (
+                <section
+                  class={`tabpanel ${idx === 0 ? "is-active" : ""}`}
+                  role="tabpanel"
+                  id={`panel-${t.key}`}
+                  aria-labelledby={`tab-${t.key}`}
+                  data-panel={t.key}
+                >
+                  <ul class="bullets">
+                    {repertorio[t.key].map((obra) => (
+                      <li>{obra}</li>
+                    ))}
+                  </ul>
+                </section>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Agrupaciones -->
+      <section class="section agrupaciones" aria-label="Agrupaciones">
+        <div class="wrap wrap-wide">
+          <h2>Agrupaciones</h2>
+
+          <div class="ag-grid">
+            {agrupaciones.map((a) => (
+              <article class="ag-card">
+                <header class="ag-head">
+                  <h3 class="ag-title">{a.title}</h3>
+                </header>
+
+                <div class="ag-image" aria-hidden="true">
+                  <img src={a.img} alt="" loading="lazy" />
+                </div>
+
+                <div class="ag-body">
+                  <p>{a.text}</p>
+                </div>
+
+                <footer class="ag-foot">
+                  <p class="ag-price">{a.price}</p>
+                </footer>
+              </article>
+            ))}
+          </div>
+
+          <!-- Otro (sugerir) -->
+          <div class="ag-other">
+            <h3 class="ag-other-title">Otro (sugerir)</h3>
+            <p class="ag-other-text">
+              Tenemos flexibilidad con las agrupaciones y puedes contactarnos para hablar del conjunto que hayas pensado.
+            </p>
+          </div>
+
+          <!-- Letra pequeña -->
+          <p class="fineprint">(Los precios corresponden a eventos por la zona del Noroeste murciano y Madrid ciudad, en casos que requieran mayor desplazamiento
+          y/o duración y/o características especiales, los precios serían susceptibles de aumentar.)</p>
+        </div>
+      </section>
+
+      <!-- Nuestro equipo principal -->
+      <section class="section equipo" aria-label="Nuestro equipo principal">
+        <div class="wrap">
+          <h2>Nuestro equipo principal</h2>
+
+          <ul class="team-list">
+            <li>
+              <span class="team-role">Piano:</span>
+              <a class="team-link" href="/joseandres">José Andrés Ludeña Martínez</a>
+            </li>
+            <li>
+              <span class="team-role">Voz:</span>
+              <a class="team-link" href="/carmenmaria">Carmen María Ludeña Martínez</a>
+            </li>
+            <li>
+              <span class="team-role">Violonchelo:</span>
+              <a class="team-link" href={albaLinkedIn} target="_blank" rel="noreferrer">
+                Alba María López Marín
+              </a>
+            </li>
+            <li>
+              <span class="team-role">Percusión:</span>
+              <a class="team-link" href="/antonio">Antonio Ludeña Martínez</a>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Contáctanos -->
+      <section class="section contactanos" aria-label="Contáctanos">
+        <div class="wrap">
+          <h2>Contáctanos</h2>
+          <p class="lead">
+            Para encargar y concretar las cosas, preferimos un servicio cercano y personalizado, para ello, escribe un whatsapp al
+            {` ${whatsappNumberPretty} `} ó un correo a {emailTo}. Puedes hacerlo a través del apartado de{" "}
+            <a class="inline-link" href={contactoHref}>contacto</a>.
+          </p>
+
+          <div class="contact-actions">
+            <a class="btn" href={`mailto:${emailTo}?subject=${encodeURIComponent("Bodas y eventos - Consulta desde la web")}`}>
+              Enviar correo
+            </a>
+            <a class="btn btn-ghost" href={whatsappHref} target="_blank" rel="noreferrer">
+              WhatsApp
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="wrap footer-wrap">
+          <p>© {new Date().getFullYear()} Hermanos Ludeña Martínez</p>
+        </div>
+      </footer>
+    </main>
+
+    <script>
+      // Galería “Ver más”
+      (() => {
+        const root = document.querySelector("[data-gallery]");
+        const btn = document.querySelector("[data-gallery-toggle]");
+        if (!root || !btn) return;
+
+        const collapsedCount = Number(root.getAttribute("data-collapsed-count") || "6");
+
+        const apply = (expanded) => {
+          const items = root.querySelectorAll("[data-gitem]");
+          items.forEach((el, i) => {
+            const hide = !expanded && i >= collapsedCount;
+            el.toggleAttribute("hidden", hide);
+          });
+
+          btn.setAttribute("aria-expanded", expanded ? "true" : "false");
+          btn.textContent = expanded ? "Ver menos" : "Ver más";
+        };
+
+        apply(false);
+
+        btn.addEventListener("click", () => {
+          const expanded = btn.getAttribute("aria-expanded") === "true";
+          apply(!expanded);
+        });
+      })();
+
+      // Tabs repertorio
+      (() => {
+        const tabs = document.querySelector("[data-tabs]");
+        if (!tabs) return;
+
+        const buttons = Array.from(tabs.querySelectorAll("[role='tab']"));
+        const panels = Array.from(tabs.querySelectorAll("[role='tabpanel']"));
+
+        const setActive = (key) => {
+          buttons.forEach((b) => {
+            const is = b.getAttribute("data-tab") === key;
+            b.setAttribute("aria-selected", is ? "true" : "false");
+            b.classList.toggle("is-active", is);
+          });
+
+          panels.forEach((p) => {
+            const is = p.getAttribute("data-panel") === key;
+            p.classList.toggle("is-active", is);
+            p.toggleAttribute("hidden", !is);
+          });
+        };
+
+        const firstKey = buttons[0]?.getAttribute("data-tab");
+        if (firstKey) setActive(firstKey);
+
+        buttons.forEach((b) => {
+          b.addEventListener("click", () => setActive(b.getAttribute("data-tab")));
+        });
+      })();
+    </script>
+
+    <style>
+      @font-face {
+        font-family: "Golden-Antique";
+        src: url("/fonts/Golden-Antique.otf") format("opentype");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      :root{
+        --bg: #212121;
+        --panel: #181818;
+        --text: rgba(255,255,255,0.92);
+        --muted: rgba(255,255,255,0.68);
+        --shadow: 0 22px 70px rgba(0,0,0,0.55);
+        --radius: 18px;
+
+        --sidebarW: 104px;
+        --iconBox: 56px;
+        --iconSize: 28px;
+      }
+
+      *{ box-sizing: border-box; }
+      html, body{ height: 100%; }
+
+      body{
+        margin:0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+        letter-spacing: 0.2px;
+      }
+
+      a{ color: inherit; text-decoration: none; }
+
+      .wrap{
+        width: min(1120px, calc(100% - 52px));
+        margin: 0 auto;
+      }
+
+      /* Contenedor más ancho (se usa en Agrupaciones y en la cabecera) */
+      .wrap-wide{
+        width: min(1320px, calc(100% - 40px));
+      }
+
+      /* Sidebar */
+      .sidebar{
+        position: fixed;
+        inset: 0 auto 0 0;
+        width: var(--sidebarW);
+        background: var(--panel);
+        border-right: 1px solid rgba(255,255,255,0.08);
+        z-index: 50;
+      }
+
+      .sidebar-inner{
+        height: 100%;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        padding: 16px 14px;
+        gap: 16px;
+      }
+
+      .lm{
+        display: grid;
+        place-items: center;
+        height: 74px;
+        border-radius: 16px;
+        background: rgba(255,255,255,0.04);
+        outline: 1px solid rgba(255,255,255,0.08);
+        transition: transform 160ms ease, background 160ms ease, outline-color 160ms ease;
+      }
+
+      .lm:hover{
+        transform: translateY(-1px);
+        background: rgba(255,255,255,0.06);
+        outline-color: rgba(255,255,255,0.16);
+      }
+
+      .lm-img{
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+        display: block;
+      }
+
+      .iconnav{
+        display: grid;
+        align-content: start;
+        justify-items: center;
+        gap: 14px;
+        padding-top: 6px;
+      }
+
+      .iconlink{
+        width: var(--iconBox);
+        height: var(--iconBox);
+        border-radius: 16px;
+        display: grid;
+        place-items: center;
+        background: rgba(255,255,255,0.04);
+        outline: 1px solid rgba(255,255,255,0.08);
+        transition: transform 160ms ease, background 160ms ease, outline-color 160ms ease;
+      }
+
+      .iconlink:hover{
+        transform: translateY(-1px);
+        background: rgba(255,255,255,0.06);
+        outline-color: rgba(255,255,255,0.18);
+      }
+
+      .iconlink[data-active="true"]{
+        background: rgba(255,255,255,0.08);
+        outline-color: rgba(255,255,255,0.18);
+      }
+
+      .iconlink img{
+        width: var(--iconSize);
+        height: var(--iconSize);
+        object-fit: contain;
+        display: block;
+      }
+
+      .divider{
+        width: 44px;
+        height: 1px;
+        background: rgba(255,255,255,0.12);
+        margin: 8px 0;
+      }
+
+      .sidebar-foot{ height: 10px; }
+
+      .main{ margin-left: var(--sidebarW); }
+
+      /* Secciones */
+      .section{ padding: 74px 0; }
+
+      h2{
+        margin: 0 0 14px;
+        font-size: clamp(22px, 3vw, 30px);
+        letter-spacing: 0.02em;
+      }
+
+      /* Cabecera */
+      .pagehead{ padding-top: 56px; }
+      .pagehead-wrap{ display: grid; gap: 26px; }
+
+      .pagehead-title{ display: grid; gap: 12px; }
+
+      .page-title{
+        margin: 0;
+        font-size: clamp(30px, 4.6vw, 44px);
+        line-height: 1.05;
+        letter-spacing: 0.02em;
+        font-weight: 600;
+      }
+
+      .rule{
+        height: 2px;
+        width: clamp(240px, 62%, 560px);
+        background: linear-gradient(90deg, rgba(255,255,255,0.55), rgba(255,255,255,0.0));
+        border-radius: 999px;
+      }
+
+      /* Intro: foto - texto - foto (más ancho y sin bordes en fotos) */
+      .intro{
+        display: grid;
+        grid-template-columns: 1fr 1.5fr 1fr;
+        gap: 22px;
+        align-items: start;
+      }
+
+      .intro-media{
+        margin: 0;
+        border-radius: var(--radius);
+        overflow: hidden;
+        outline: none;
+        background: transparent;
+        box-shadow: none;
+        align-self: start;
+        display: block;
+      }
+
+      .intro-media img{
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: contain;     /* se ve completa */
+        aspect-ratio: auto;
+        background: transparent;
+      }
+
+      .intro-text{
+        padding: 0;
+        background: transparent;
+        outline: none;
+      }
+
+      .intro-text p{
+        margin: 0 0 12px;
+        color: rgba(255,255,255,0.70);
+        line-height: 1.85;
+      }
+      .intro-text p:last-child{ margin-bottom: 0; }
+
+      /* Galería */
+      .gallery{
+        background: var(--panel);
+        border-top: 1px solid rgba(255,255,255,0.08);
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+      }
+
+      .gallery-stack{
+        display: grid;
+        gap: 18px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      @media (min-width: 1280px){
+        .gallery-stack{
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+      }
+
+      .gitem{
+        border-radius: var(--radius);
+        overflow: hidden;
+        outline: 1px solid rgba(255,255,255,0.10);
+        background: #111;
+        box-shadow: var(--shadow);
+      }
+
+      .embed{
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        background: #000;
+      }
+
+      .embed iframe{
+        width: 100%;
+        height: 100%;
+        border: 0;
+        display: block;
+      }
+
+      .photo img{
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+      }
+
+      .gallery-more{
+        margin-top: 18px;
+        display: grid;
+        justify-items: start;
+      }
+
+      .more-link{
+        display: inline-flex;
+        align-items: center;
+        height: 40px;
+        padding: 0 14px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.06);
+        outline: 1px solid rgba(255,255,255,0.10);
+        color: rgba(255,255,255,0.86);
+        transition: transform 160ms ease, background 160ms ease, outline-color 160ms ease;
+        border: 0;
+        cursor: pointer;
+      }
+
+      .more-link:hover{
+        transform: translateY(-1px);
+        background: rgba(255,255,255,0.09);
+        outline-color: rgba(255,255,255,0.18);
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+
+      /* Tabs “Chrome-like” */
+      .tabs{ margin-top: 10px; }
+
+      .tabbar{
+        display: flex;
+        gap: 8px;
+        align-items: end;
+        padding: 0 6px;
+      }
+
+      .tab{
+        height: 42px;
+        padding: 0 14px;
+        border-radius: 14px 14px 0 0;
+        border: 0;
+        cursor: pointer;
+        color: rgba(255,255,255,0.86);
+        background: rgba(255,255,255,0.05);
+        outline: 1px solid rgba(255,255,255,0.10);
+        transition: background 160ms ease, outline-color 160ms ease, transform 160ms ease;
+      }
+
+      .tab:hover{
+        transform: translateY(-1px);
+        background: rgba(255,255,255,0.07);
+        outline-color: rgba(255,255,255,0.16);
+      }
+
+      .tab.is-active,
+      .tab[aria-selected="true"]{
+        background: rgba(255,255,255,0.10);
+        outline-color: rgba(255,255,255,0.18);
+      }
+
+      .tabpanels{
+        border-radius: 0 var(--radius) var(--radius) var(--radius);
+        background: rgba(255,255,255,0.04);
+        outline: 1px solid rgba(255,255,255,0.10);
+        padding: 18px;
+      }
+
+      .tabpanel{ display: none; }
+      .tabpanel.is-active{ display: block; }
+
+      .bullets{
+        margin: 0;
+        padding-left: 18px;
+        color: rgba(255,255,255,0.78);
+      }
+      .bullets li{ margin: 8px 0; }
+
+      /* Agrupaciones */
+      .ag-grid{
+        margin-top: 18px;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 18px;
+        align-items: stretch;
+      }
+
+      .ag-card{
+        border-radius: var(--radius);
+        background: rgba(255,255,255,0.04);
+        outline: 1px solid rgba(255,255,255,0.10);
+        overflow: hidden;
+        display: grid;
+        grid-template-rows: auto auto 1fr auto;
+        min-height: 100%;
+      }
+
+      .ag-head{ padding: 14px 14px 10px; }
+      .ag-title{
+        margin: 0;
+        font-size: 14px;
+        letter-spacing: 0.02em;
+        color: rgba(255,255,255,0.90);
+        line-height: 1.35;
+      }
+
+      .ag-image{
+        background: #111;
+        outline: 1px solid rgba(255,255,255,0.08);
+      }
+      .ag-image img{
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+        aspect-ratio: 4 / 3;
+      }
+
+      .ag-body{
+        padding: 12px 14px;
+        color: rgba(255,255,255,0.68);
+        line-height: 1.7;
+        font-size: 13px;
+      }
+
+      .ag-body p{ margin: 0; }
+
+      .ag-foot{
+        padding: 12px 14px 14px;
+        border-top: 1px solid rgba(255,255,255,0.08);
+      }
+
+      .ag-price{
+        margin: 0;
+        text-align: center;
+        font-size: 14px;
+        letter-spacing: 0.02em;
+        color: rgba(255,255,255,0.88);
+      }
+
+      .ag-other{
+        margin-top: 16px;
+        border-radius: var(--radius);
+        background: rgba(255,255,255,0.04);
+        outline: 1px solid rgba(255,255,255,0.10);
+        padding: 16px 18px;
+      }
+
+      .ag-other-title{
+        margin: 0 0 8px;
+        font-size: 16px;
+        letter-spacing: 0.02em;
+      }
+
+      .ag-other-text{
+        margin: 0;
+        color: rgba(255,255,255,0.68);
+        line-height: 1.75;
+      }
+
+      .fineprint{
+        margin: 12px 0 0;
+        color: rgba(255,255,255,0.56);
+        font-size: 12px;
+        line-height: 1.55;
+      }
+
+      /* Nuestro equipo principal */
+      .equipo{
+        padding-top: 34px;
+        padding-bottom: 34px;
+      }
+
+      .team-list{
+        margin: 10px 0 0;
+        padding-left: 18px;
+        color: rgba(255,255,255,0.74);
+        line-height: 1.8;
+      }
+
+      .team-role{
+        color: rgba(255,255,255,0.62);
+      }
+
+      .team-link{
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+
+      /* Contáctanos */
+      .lead{
+        margin: 0 0 18px;
+        color: rgba(255,255,255,0.68);
+        line-height: 1.75;
+        max-width: 80ch;
+      }
+
+      .inline-link{
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+
+      .contact-actions{
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin: 10px 0 0;
+      }
+
+      .btn{
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 42px;
+        padding: 0 16px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.08);
+        outline: 1px solid rgba(255,255,255,0.10);
+        color: rgba(255,255,255,0.90);
+        transition: transform 160ms ease, background 160ms ease, outline-color 160ms ease;
+        border: 0;
+        cursor: pointer;
+      }
+
+      .btn:hover{
+        transform: translateY(-1px);
+        background: rgba(255,255,255,0.12);
+        outline-color: rgba(255,255,255,0.18);
+      }
+
+      .btn-ghost{ background: rgba(255,255,255,0.05); }
+
+      /* Footer */
+      .footer{
+        padding: 30px 0 44px;
+        color: rgba(255,255,255,0.58);
+      }
+
+      .footer-wrap{
+        border-top: 1px solid rgba(255,255,255,0.08);
+        padding-top: 16px;
+      }
+
+      /* Responsive */
+      @media (max-width: 1100px){
+        .ag-grid{ grid-template-columns: 1fr 1fr; }
+      }
+
+      @media (max-width: 980px){
+        .intro{ grid-template-columns: 1fr; }
+        .intro-media img{ aspect-ratio: 16 / 9; }
+
+        .gallery-stack{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+
+      @media (max-width: 640px){
+        .gallery-stack{ grid-template-columns: 1fr; }
+      }
+
+      @media (max-width: 520px){
+        :root{
+          --sidebarW: 92px;
+          --iconBox: 54px;
+          --iconSize: 28px;
+        }
+        .wrap{ width: min(1120px, calc(100% - 34px)); }
+        .wrap-wide{ width: min(1320px, calc(100% - 34px)); }
+        .ag-grid{ grid-template-columns: 1fr; }
+      }
+    </style>
+  </body>
+</html>

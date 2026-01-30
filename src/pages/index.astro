@@ -1,0 +1,809 @@
+---
+const siteTitle = "Hermanos Ludeña Martínez";
+
+const hermanos = [
+  { nombre: "José Andrés", href: "/joseandres", img: "/joseandres.png", alt: "José Andrés tocando un instrumento", icon: "/iconojoseandres.png" },
+  { nombre: "Antonio", href: "/antonio", img: "/antonio.png", alt: "Antonio tocando un instrumento", icon: "/iconoantonio.png" },
+  { nombre: "Carmen María", href: "/carmenmaria", img: "/carmenmaria.png", alt: "Carmen María tocando un instrumento", icon: "/iconocarmenmaria.png" },
+];
+
+const bodasHref = "/bodas-y-eventos";
+const emailTo = "joseanlude99@gmail.com";
+
+const whatsappNumber = "34659474125"; // sin +, sin espacios
+const whatsappText = "Hola, me gustaría pedir información.";
+const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappText)}`;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{siteTitle}</title>
+    <meta name="description" content="Página principal de Hermanos Ludeña Martínez." />
+  </head>
+
+  <body>
+    <!-- Barra lateral izquierda -->
+    <aside class="sidebar" aria-label="Navegación lateral">
+      <div class="sidebar-inner">
+        <!-- Logo -->
+        <a class="lm" href="/" aria-label="Inicio">
+          <img class="lm-img" src="/logolm.png" alt="LM" loading="eager" />
+        </a>
+
+        <nav class="iconnav" aria-label="Accesos">
+          {hermanos.map((h) => (
+            <a class="iconlink" href={h.href} aria-label={`Ir a la página de ${h.nombre}`} title={h.nombre}>
+              <img src={h.icon} alt="" loading="eager" />
+            </a>
+          ))}
+
+          <div class="divider" role="separator" aria-hidden="true"></div>
+
+          <a class="iconlink" href={bodasHref} aria-label="Ir a Bodas y eventos" title="Bodas y eventos">
+            <img src="/iconobodasyeventos.png" alt="" loading="lazy" />
+          </a>
+
+          <a class="iconlink" href="#contacto" aria-label="Ir a Contacto" title="Contacto">
+            <img src="/iconocontacto.png" alt="" loading="lazy" />
+          </a>
+        </nav>
+
+        <div class="sidebar-foot" aria-hidden="true"></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <!-- HERO -->
+      <section class="hero" aria-label="Inicio">
+        <div class="wrap hero-wrap">
+          <header class="hero-title">
+            <h1 class="title">{siteTitle}</h1>
+            <div class="rule" aria-hidden="true"></div>
+          </header>
+
+          <!-- Fotos distribuidas homogéneamente (más separación) -->
+          <div class="triptych" aria-label="Acceso a páginas de cada hermano">
+            {hermanos.map((h) => (
+              <a class="card" href={h.href} aria-label={`Ir a la página de ${h.nombre}`}>
+                <div class="blob" aria-hidden="true">
+                  <img src="/manchablanca.png" alt="" loading="eager" />
+                </div>
+
+                <figure class="photo">
+                  <img class="person" src={h.img} alt={h.alt} loading="eager" />
+                  <figcaption class="caption">
+                    <span class="name">{h.nombre}</span>
+                  </figcaption>
+                </figure>
+              </a>
+            ))}
+          </div>
+
+          <!-- Flecha con círculo de carga -->
+          <div class="scroll-indicator" aria-hidden="true">
+            <svg class="progress" viewBox="0 0 48 48">
+              <circle class="track" cx="24" cy="24" r="20"></circle>
+              <circle class="bar" cx="24" cy="24" r="20"></circle>
+            </svg>
+
+            <svg class="arrow" viewBox="0 0 24 24">
+              <path d="M12 5v12"></path>
+              <path d="M7 13l5 5 5-5"></path>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- BODAS Y EVENTOS -->
+      <section class="section services" id="bodas" aria-label="Bodas y eventos">
+        <div class="wrap services-wrap">
+          <div class="services-text">
+            <h2>Bodas y eventos</h2>
+            <p>
+              La música acompaña los momentos más especiales de nuestras vidas. Nosotros la llevamos desde la cuna.
+            </p>
+            <p>
+              Permítenos ofrecerte música para tu boda o cualquier otro evento. 
+              No hay ocasión que sea más bonita sin la música.
+              Nosotros tenemos todo lo necesario.
+            </p>
+
+            <ul class="bullets">
+              <li>Repertorio flexible: podemos tocar <b>cualquier pieza</b></li>
+              <li>Arreglamos y adaptamos cualquier canción que puedas soñar</li>
+              <li>Transportamos y montamos <b>todo lo necesario</b></li>
+            </ul>
+
+            <p class="more">
+              <a class="more-link" href={bodasHref}>Aquí tienes toda la información</a>
+            </p>
+          </div>
+
+          <div class="services-media" aria-hidden="true">
+            <div class="reveal" data-reveal>
+              <img src="/boda.jpg" alt="" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACTO -->
+      <section class="section contact" id="contacto" aria-label="Contacto">
+        <div class="wrap contact-wrap">
+          <div class="contact-text">
+            <h2>Contacto</h2>
+            <p class="lead">
+              Para cualquier consulta no dudes en contactarnos, respondemos lo antes posible.
+            </p>
+
+            <div class="contact-actions">
+              <a class="btn" href={`mailto:${emailTo}?subject=${encodeURIComponent("Consulta desde la web")}`}>
+                Enviar correo
+              </a>
+
+              <a class="btn btn-ghost" href={whatsappHref} target="_blank" rel="noreferrer">
+                WhatsApp
+              </a>
+            </div>
+
+            <p class="fineprint">
+              Nota: el botón de correo abre tu cliente de email. Para envío automático desde la web, se añadirá más adelante
+              un endpoint en Cloudflare Pages.
+            </p>
+          </div>
+
+          <form class="form" method="post" action="/api/contact" novalidate>
+            <label>
+              <span>Nombre</span>
+              <input name="name" type="text" autocomplete="name" placeholder="Tu nombre" />
+            </label>
+
+            <label>
+              <span>Email</span>
+              <input name="email" type="email" autocomplete="email" placeholder="tu@email.com" />
+            </label>
+
+            <label class="full">
+              <span>Mensaje</span>
+              <textarea name="message" rows="6" placeholder="Escribe aquí tu mensaje"></textarea>
+            </label>
+
+            <label class="hp">
+              <span>No rellenar</span>
+              <input name="company" type="text" tabindex="-1" autocomplete="off" />
+            </label>
+
+            <button class="btn" type="submit">Enviar</button>
+            <p class="fineprint">
+              Este formulario quedará operativo cuando añadamos /api/contact con Cloudflare Pages (Functions).
+            </p>
+          </form>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="wrap footer-wrap">
+          <p>© {new Date().getFullYear()} Hermanos Ludeña Martínez</p>
+        </div>
+      </footer>
+    </main>
+
+    <script>
+      // Imagen de Bodas y eventos: aparece desde la derecha de forma proporcional al scroll
+      (() => {
+        const reveal = document.querySelector('[data-reveal]');
+        if (!reveal) return;
+
+        let raf = 0;
+        let active = false;
+
+        const clamp01 = (n) => Math.max(0, Math.min(1, n));
+
+        const update = () => {
+          raf = 0;
+          if (!active) return;
+
+          const section = reveal.closest('.services');
+          if (!section) return;
+
+          const rect = section.getBoundingClientRect();
+          const vh = window.innerHeight || document.documentElement.clientHeight;
+
+          const start = vh * 0.92;
+          const end = vh * 0.28;
+          const t = (start - rect.top) / (start - end);
+          const p = clamp01(t);
+
+          const maxX = 140;
+          const x = (1 - p) * maxX;
+
+          reveal.style.transform = `translateX(${x}px)`;
+          reveal.style.opacity = String(0.15 + 0.85 * p);
+        };
+
+        const onScroll = () => {
+          if (raf) return;
+          raf = requestAnimationFrame(update);
+        };
+
+        const io = new IntersectionObserver(
+          (entries) => {
+            const isIntersecting = entries.some((e) => e.isIntersecting);
+            active = isIntersecting;
+            if (active) {
+              update();
+              window.addEventListener('scroll', onScroll, { passive: true });
+              window.addEventListener('resize', onScroll);
+            } else {
+              window.removeEventListener('scroll', onScroll);
+              window.removeEventListener('resize', onScroll);
+            }
+          },
+          { root: null, threshold: [0, 0.2, 0.4, 0.7] }
+        );
+
+        io.observe(reveal);
+      })();
+
+      // Progreso circular (empieza al primer scroll y termina cuando el bloque #bodas está claramente en pantalla)
+      (() => {
+        const bar = document.querySelector('.scroll-indicator .bar');
+        const target = document.querySelector('#bodas');
+        if (!bar || !target) return;
+
+        const r = 20;
+        const C = 2 * Math.PI * r;
+        bar.style.strokeDasharray = String(C);
+        bar.style.strokeDashoffset = String(C);
+
+        const clamp01 = (n) => Math.max(0, Math.min(1, n));
+
+        const update = () => {
+          const rect = target.getBoundingClientRect();
+          const vh = window.innerHeight || document.documentElement.clientHeight;
+
+          const targetTopInViewport = vh * 0.80;
+          const targetTopDoc = window.scrollY + rect.top;
+          const scrollNeeded = Math.max(1, targetTopDoc - targetTopInViewport);
+
+          const raw = clamp01(window.scrollY / scrollNeeded);
+          const p = Math.pow(raw, 0.75);
+
+          bar.style.strokeDashoffset = String(C * (1 - p));
+        };
+
+        let raf = 0;
+        const onScroll = () => {
+          if (raf) return;
+          raf = requestAnimationFrame(() => {
+            raf = 0;
+            update();
+          });
+        };
+
+        update();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+      })();
+    </script>
+
+    <style>
+      @font-face {
+        font-family: "Golden-Antique";
+        src: url("/fonts/Golden-Antique.otf") format("opentype");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+
+
+      :root{
+        --bg: #212121;
+        --panel: #181818;
+        --text: rgba(255,255,255,0.92);
+        --muted: rgba(255,255,255,0.68);
+        --shadow: 0 22px 70px rgba(0,0,0,0.55);
+        --radius: 18px;
+
+        /* Barra algo más ancha para iconos mayores */
+        --sidebarW: 104px;
+
+        /* Tamaños de iconos */
+        --iconBox: 56px;
+        --iconSize: 28px;
+      }
+
+      *{ box-sizing: border-box; }
+      html, body{ height: 100%; }
+      body{
+        margin:0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+        letter-spacing: 0.2px;
+      }
+
+      a{ color: inherit; text-decoration: none; }
+
+      .wrap{
+        width: min(1120px, calc(100% - 52px));
+        margin: 0 auto;
+      }
+
+      /* Sidebar */
+      .sidebar{
+        position: fixed;
+        inset: 0 auto 0 0;
+        width: var(--sidebarW);
+        background: var(--panel);
+        border-right: 1px solid rgba(255,255,255,0.08);
+        z-index: 50;
+      }
+
+      .sidebar-inner{
+        height: 100%;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        padding: 16px 14px;
+        gap: 16px;
+      }
+
+      .lm{
+        display: grid;
+        place-items: center;
+        height: 74px;
+        border-radius: 16px;
+        background: rgba(255,255,255,0.04);
+        outline: 1px solid rgba(255,255,255,0.08);
+        transition: transform 160ms ease, background 160ms ease, outline-color 160ms ease;
+      }
+
+      .lm:hover{
+        transform: translateY(-1px);
+        background: rgba(255,255,255,0.06);
+        outline-color: rgba(255,255,255,0.16);
+      }
+
+      .lm-img{
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+        display: block;
+      }
+
+      .iconnav{
+        display: grid;
+        align-content: start;
+        justify-items: center;
+        gap: 14px;
+        padding-top: 6px;
+      }
+
+      .iconlink{
+        width: var(--iconBox);
+        height: var(--iconBox);
+        border-radius: 16px;
+        display: grid;
+        place-items: center;
+        background: rgba(255,255,255,0.04);
+        outline: 1px solid rgba(255,255,255,0.08);
+        transition: transform 160ms ease, background 160ms ease, outline-color 160ms ease;
+      }
+
+      .iconlink:hover{
+        transform: translateY(-1px);
+        background: rgba(255,255,255,0.06);
+        outline-color: rgba(255,255,255,0.18);
+      }
+
+      .iconlink img{
+        width: var(--iconSize);
+        height: var(--iconSize);
+        object-fit: contain;
+        display: block;
+      }
+
+      .divider{
+        width: 44px;
+        height: 1px;
+        background: rgba(255,255,255,0.12);
+        margin: 8px 0;
+      }
+
+      .sidebar-foot{ height: 10px; }
+
+      /* Main offset */
+      .main{ margin-left: var(--sidebarW); }
+
+      /* HERO */
+      .hero{
+        min-height: 100vh;
+        display: grid;
+        align-items: center;
+        padding: 56px 0 30px;
+      }
+
+      .hero-wrap{
+        display: grid;
+        gap: 22px;
+      }
+
+      .hero-title{
+        display: grid;
+        gap: 12px;
+      }
+
+      .title{
+        margin: 0;
+        font-family: "Golden Antique", serif;
+        font-size: clamp(32px, 5vw, 54px);
+        line-height: 1.02;
+        letter-spacing: 0.05em;
+      }
+
+
+      .rule{
+        height: 2px;
+        width: clamp(240px, 62%, 560px);
+        background: linear-gradient(90deg, rgba(255,255,255,0.55), rgba(255,255,255,0.0));
+        border-radius: 999px;
+      }
+
+      /* Más separación entre fotos */
+      .triptych{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 44px; /* antes 26 */
+        align-items: stretch;
+        padding-top: 10px;
+      }
+
+      .card{
+        position: relative;
+        min-height: min(62vh, 620px);
+        display: grid;
+        place-items: center;
+        border-radius: var(--radius);
+        overflow: visible;
+        outline: none;
+      }
+
+      /* Mancha blanca */
+      .blob{
+        position: absolute;
+        width: min(430px, 36vw);
+        max-width: 520px;
+        aspect-ratio: 1 / 1;
+        display: grid;
+        place-items: center;
+        pointer-events: none;
+        opacity: 0.90;
+        transform: translateY(6px);
+      }
+
+      .blob img{
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+      }
+
+      .photo{
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        display: grid;
+        place-items: center;
+        position: relative;
+      }
+
+      .person{
+        width: min(360px, 30vw);
+        height: min(520px, 56vh);
+        max-height: 620px;
+        object-fit: contain;
+        display: block;
+        transform: translateY(0) scale(1);
+        transition: transform 240ms ease, filter 240ms ease;
+        filter: drop-shadow(0 24px 55px rgba(0,0,0,0.55));
+      }
+
+      /* Subimos mucho el nombre: pegado a la base de la foto */
+      .caption{
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 34px;          /* más arriba */
+        display: grid;
+        justify-items: center;
+        transform: translateY(6px);
+        opacity: 0;
+        transition: opacity 200ms ease, transform 200ms ease;
+        pointer-events: none;
+      }
+
+      .name{
+        color: rgba(255,255,255,0.92);
+        font-size: 15px;
+        letter-spacing: 0.03em;
+      }
+
+      .card:hover .person,
+      .card:focus-visible .person{
+        transform: translateY(-14px) scale(1.03);
+        filter: drop-shadow(0 28px 70px rgba(0,0,0,0.62));
+      }
+
+      .card:hover .caption,
+      .card:focus-visible .caption{
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .card:hover .name,
+      .card:focus-visible .name{
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+
+      /* Flecha + círculo (blanco) */
+      .scroll-indicator{
+        position: relative;
+        width: 54px;
+        height: 54px;
+        margin: 10px auto 0;
+        display: grid;
+        place-items: center;
+        opacity: 0.92;
+      }
+
+      .scroll-indicator .progress{
+        position: absolute;
+        inset: 0;
+        transform: rotate(-90deg);
+      }
+
+      .scroll-indicator circle{
+        fill: none;
+        stroke-width: 3.5;
+      }
+
+      .scroll-indicator .track{
+        stroke: rgba(255,255,255,0.16);
+      }
+
+      .scroll-indicator .bar{
+        stroke: rgba(255,255,255,0.60);
+        stroke-linecap: round;
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+        transition: stroke-dashoffset 60ms linear;
+      }
+
+      .scroll-indicator .arrow{
+        width: 18px;
+        height: 18px;
+        stroke: rgba(255,255,255,0.80);
+        stroke-width: 2;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      /* Secciones */
+      .section{ padding: 84px 0; }
+      h2{
+        margin: 0 0 14px;
+        font-size: clamp(22px, 3vw, 30px);
+        letter-spacing: 0.02em;
+      }
+
+      .services{
+        background: var(--panel);
+        border-top: 1px solid rgba(255,255,255,0.08);
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+      }
+
+      .services-wrap{
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 36px;
+        align-items: center;
+      }
+
+      .services-text p{ color: rgba(255,255,255,0.68); line-height: 1.75; }
+
+      .bullets{
+        margin: 18px 0 0;
+        padding-left: 18px;
+        color: rgba(255,255,255,0.78);
+      }
+      .bullets li{ margin: 8px 0; }
+
+      .more{ margin: 18px 0 0; }
+
+      .more-link{
+        display: inline-flex;
+        align-items: center;
+        height: 40px;
+        padding: 0 14px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.06);
+        outline: 1px solid rgba(255,255,255,0.10);
+        color: rgba(255,255,255,0.86);
+        transition: transform 160ms ease, background 160ms ease, outline-color 160ms ease;
+      }
+
+      .more-link:hover{
+        transform: translateY(-1px);
+        background: rgba(255,255,255,0.09);
+        outline-color: rgba(255,255,255,0.18);
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+
+      .services-media{
+        display: grid;
+        justify-items: end;
+      }
+
+      .reveal{
+        width: min(460px, 100%);
+        border-radius: var(--radius);
+        overflow: hidden;
+        outline: 1px solid rgba(255,255,255,0.10);
+        box-shadow: var(--shadow);
+        background: #111;
+        transform: translateX(140px);
+        opacity: 0.15;
+      }
+
+      .reveal img{
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+      }
+
+      /* Contacto */
+      .lead{
+        margin: 0 0 18px;
+        color: rgba(255,255,255,0.68);
+        line-height: 1.75;
+        max-width: 70ch;
+      }
+
+      .contact{
+        border-top: 1px solid rgba(255,255,255,0.08);
+      }
+
+      .contact-wrap{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+        align-items: start;
+      }
+
+      .contact-actions{
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin: 12px 0 0;
+      }
+
+      .btn{
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 42px;
+        padding: 0 16px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.08);
+        outline: 1px solid rgba(255,255,255,0.10);
+        color: rgba(255,255,255,0.90);
+        transition: transform 160ms ease, background 160ms ease, outline-color 160ms ease;
+        border: 0;
+        cursor: pointer;
+      }
+
+      .btn:hover{
+        transform: translateY(-1px);
+        background: rgba(255,255,255,0.12);
+        outline-color: rgba(255,255,255,0.18);
+      }
+
+      .btn-ghost{
+        background: rgba(255,255,255,0.05);
+      }
+
+      .form{
+        border-radius: var(--radius);
+        background: rgba(255,255,255,0.04);
+        outline: 1px solid rgba(255,255,255,0.10);
+        padding: 18px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      .form label{
+        display: grid;
+        gap: 8px;
+        color: rgba(255,255,255,0.78);
+        font-size: 13px;
+      }
+
+      .form .full{ grid-column: 1 / -1; }
+
+      input, textarea{
+        width: 100%;
+        padding: 12px 12px;
+        border-radius: 12px;
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(0,0,0,0.25);
+        color: rgba(255,255,255,0.90);
+        outline: none;
+      }
+
+      input:focus, textarea:focus{
+        border-color: rgba(255,255,255,0.20);
+      }
+
+      .hp{
+        position: absolute;
+        left: -9999px;
+        top: auto;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+      }
+
+      .fineprint{
+        margin: 12px 0 0;
+        color: rgba(255,255,255,0.56);
+        font-size: 12px;
+        line-height: 1.55;
+      }
+
+      /* Footer */
+      .footer{
+        padding: 30px 0 44px;
+        color: rgba(255,255,255,0.58);
+      }
+
+      .footer-wrap{
+        border-top: 1px solid rgba(255,255,255,0.08);
+        padding-top: 16px;
+      }
+
+      /* Responsive */
+      @media (max-width: 980px){
+        .triptych{
+          grid-template-columns: 1fr;
+          gap: 26px;
+        }
+        .card{ min-height: 520px; }
+        .blob{ width: min(420px, 70vw); }
+        .person{
+          width: min(360px, 70vw);
+          height: 520px;
+        }
+        .caption{ bottom: 26px; }
+        .services-wrap{ grid-template-columns: 1fr; }
+        .services-media{ justify-items: start; }
+        .contact-wrap{ grid-template-columns: 1fr; }
+      }
+
+      @media (max-width: 520px){
+        :root{
+          --sidebarW: 92px;
+          --iconBox: 54px;
+          --iconSize: 28px;
+        }
+        .wrap{ width: min(1120px, calc(100% - 34px)); }
+      }
+    </style>
+  </body>
+</html>
