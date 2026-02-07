@@ -1,16 +1,762 @@
 ---
-// src/pages/joseandres.astro
-const nombre = "José Andrés";
+const siteTitle = "José Andrés Ludeña Martínez";
+
+/**
+ * Nota de rutas:
+ * Las imágenes están en /public, así que se referencian como:
+ * - /joseandresingenieria.jpg
+ * - /joseandresmusica.jpg
+ * - /joseandresliteratura.jpg
+ */
+
+const hermanos = [
+  { nombre: "José Andrés", href: "/joseandres", icon: "/iconojoseandres.png" },
+  { nombre: "Antonio", href: "/antonio", icon: "/iconoantonio.png" },
+  { nombre: "Carmen María", href: "/carmenmaria", icon: "/iconocarmenmaria.png" },
+];
+
+const bodasHref = "/bodas-y-eventos";
+const contactoHref = "/#contacto";
+
+/**
+ * Contenido multimedia (rellena los IDs reales)
+ * - type: "youtube" usa id
+ * - type: "photo" usa src
+ */
+const contentItems = [
+  { type: "youtube", id: "MaeqkGHfAVw", label: "Vídeo 1" },
+  { type: "youtube", id: "h_yKJswlg4I", label: "Vídeo 2" },
+  { type: "youtube", id: "eU_p3wVPtNk", label: "Vídeo 3" },
+  { type: "youtube", id: "Ixb4GDiqMZE&t", label: "Vídeo 4" },
+  { type: "youtube", id: "1wot6oPcxIM", label: "Vídeo 5" },
+  { type: "youtube", id: "5ZNdOZXYPoY", label: "Vídeo 6" },
+  { type: "youtube", id: "IuwXB1o_IzI&t", label: "Vídeo 7" },
+  // { type: "photo", src: "/alguna-foto.jpg", label: "Foto 1" },
+];
+
+// Cuántos se muestran antes de “Ver más” (múltiplos de 4 quedan mejor)
+const contentInitialCount = 8;
+
+/**
+ * Artículos (rellena título, medio, fecha, extracto y link).
+ * Recomendación: usa enlaces absolutos (https://...) si están publicados fuera,
+ * o rutas relativas si los vas a alojar en tu web.
+ */
+const articleItems = [
+  {
+    title: 'José Andrés Ludeña "Tenemos que introducir obras...',
+    outlet: "El Noroeste",
+    date: "2024-07-08",
+    excerpt: "El pianista José Andrés Ludeña ofrecía, el pasado sábado 29 de junio, en el salón de actos del conservatorio Leandro Martínez Romero, un concierto que ponía el colofón a sus estudios del Grado Profesional de Música en el centro caravaqueño.",
+    href: "https://elnoroestedigital.com/jose-ludena-pianista-caravaca/",
+  },
+  {
+    title: "Estudiantes de Murcia y Moratalla obtienen las mejores notas de la ESO de la región",
+    outlet: "La Opinión",
+    date: "2023-01-01",
+    excerpt: "Dos estudiantes de sendos centros educativos de Murcia y uno del instituto Pedro García Aguilera de Moratalla han conseguido las mejores notas en la Educación Secundaria Obligatoria y han obtenido tres de los Premios Extraordinarios correspondientes al curso 2021-2022.",
+    href: "https://www.laopiniondemurcia.es/comunidad/2023/01/01/estudiantes-murcia-moratalla-obtienen-mejores-80579385.html",
+  },
+  {
+    title: "2º Recital de piano: Jóvenes promesas del RCSMM",
+    outlet: "Aslumni ETSII",
+    date: "2025-05-09",
+    excerpt: "Extracto breve (2–3 líneas) para presentar el contenido del artículo.",
+    href: "https://alumnietsiim.com/event/2o-recital-de-piano-jovenes-promesas-del-rcsmm/",
+  },
+  {
+    title: "Caravaca. Concierto de piano y noche con Vivaldi",
+    outlet: "Onda Regional",
+    date: "2024-06-29",
+    excerpt: "Hablamos de dos citas con la cultura para hoy en la Ciudad Santa: un concierto del pianista José Andrés Ludeña y la actuación del grupo ‘Il Concerto Accademico’.",
+    href: "https://www.orm.es/programas/tag/piano/",
+  },
+  {
+    title: "José Andrés Ludeña Martínez - Carta Furtiva",
+    outlet: "Elocuencias",
+    date: "2022-04-25",
+    excerpt: "II CONCURSO NACIONAL DE PODCAST ESCOLAR",
+    href: "https://elocuencias.com/podcast/carta-furtiva/",
+  },
+];
+
+const articlesInitialCount = 8;
+
+/**
+ * Tienda (libros como coautor).
+ * Sustituye href por enlaces a librerías/editoriales.
+ * Si quieres portada, añade cover: "/ruta.jpg" y te lo dejo preparado.
+ */
+const storeItems = [
+  {
+    title: "I Concurso internacional de poesía rural",
+    subtitle: "Editorial Trifaldi",
+    description: "Caminamos hacia una sociedad cada día más urbana, pero no debemos, no podemos romper el vínculo que nos une a nuestro espacio rural y natural. Tenerlo presente, reconocer su valor y su belleza es un reto, y una obligación. Los artistas nos ayudan a extraer la belleza del territorio, es enriquecedor recurrir a ellos.",
+    href: "https://www.fnac.es/a10220667/Andres-Felipe-Vargas-Coronado-I-Concurso-internacional-de-poesia-rural",
+  },
+  {
+    title: "Huella y silencio",
+    subtitle: "Editorial Poesía Eres Tú",
+    description: "Aquí encontrarás 72 obras seleccionadas de entre más de 700 que fueron presentadas en esta edición. Te invitamos a que te dejes llevar por sus páginas y disfrutes con la emoción que cada autora y autor ha puesto en cada una de sus creaciones.",
+    href: "https://www.amazon.es/Huella-y-silencio-Varios-autores/dp/B09WYQMM3R",
+  },
+  {
+    title: "Premio María Agustina",
+    subtitle: "Editorial / Año (opcional)",
+    description: "Libro recopilatorio de las obras premiadas en el Certámen Literario María Agustina desde 2015 hasta 2024.",
+    href: "https://www.casadellibro.com/libro-premio-maria-agustina/9788460035459/212024?srsltid=AfmBOopGLA8VYNptJ0LVrjXUpoMjgGQICcIoSCjk_3clfyAVHdgopI62",
+  },
+];
+
+const storeInitialCount = 8;
 ---
+
 <html lang="es">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{nombre}</title>
+    <title>{siteTitle}</title>
+    <meta name="description" content="Perfil de José Andrés Ludeña Martínez: Ingeniería, Música y Literatura." />
   </head>
-  <body style="background:#06070a;color:#e7eefc;font-family:system-ui;margin:0;padding:48px;">
-    <h1>{nombre}</h1>
-    <p>Página en construcción.</p>
-    <p><a href="/" style="color:#6fa0ff;">Volver al inicio</a></p>
+
+  <body>
+    <!-- Barra lateral (misma estructura/estética que en index) -->
+    <aside class="sidebar" aria-label="Navegación lateral">
+      <div class="sidebar-inner">
+        <a class="lm" href="/" aria-label="Inicio">
+          <img class="lm-img" src="/logolm.png" alt="LM" loading="eager" />
+        </a>
+
+        <nav class="iconnav" aria-label="Accesos">
+          {hermanos.map((h) => (
+            <a
+              class="iconlink"
+              href={h.href}
+              aria-label={`Ir a la página de ${h.nombre}`}
+              title={h.nombre}
+              data-active={h.href === "/joseandres" ? "true" : undefined}
+            >
+              <img src={h.icon} alt="" loading="eager" />
+            </a>
+          ))}
+
+          <div class="divider" role="separator" aria-hidden="true"></div>
+
+          <a class="iconlink" href={bodasHref} aria-label="Ir a Bodas y eventos" title="Bodas y eventos">
+            <img src="/iconobodasyeventos.png" alt="" loading="lazy" />
+          </a>
+
+          <a class="iconlink" href={contactoHref} aria-label="Ir a Contacto" title="Contacto">
+            <img src="/iconocontacto.png" alt="" loading="lazy" />
+          </a>
+        </nav>
+
+        <div class="sidebar-foot" aria-hidden="true"></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <!-- Cabecera -->
+      <section class="section pagehead" aria-label="Cabecera">
+        <div class="wrap pagehead-wrap">
+          <header class="pagehead-title">
+            <h1 class="page-title">José Andrés Ludeña Martínez</h1>
+            <div class="rule" aria-hidden="true"></div>
+          </header>
+        </div>
+      </section>
+
+      <!-- Ingeniería -->
+      <section class="section" aria-label="Ingeniería">
+        <div class="wrap">
+          <div class="split">
+            <figure class="split-media split-media-natural" aria-hidden="true">
+              <img src="/joseandresingenieria.jpg" alt="" loading="eager" />
+            </figure>
+
+            <div class="split-text">
+              <h2>Ingeniería</h2>
+              <div class="cv">
+                <p>Estudio Ingeniería Aeroespacial en la Escuela Técnica Superior de Ingeniería Aeronáutica y del Espacio (ETSIAE) 
+                de la UPM, mediante el PARS, un programa por el que tengo reservada una plaza en el máster habilitante. Pude acceder 
+                a este programa gracias a mi calificación de 13,6 en la PAU.</p>
+                <p>Se me ha reconocido académicamente en variadas ocasiones: al finalizar la ESO se me concedió el Premio 
+                Extraordinario de Educación Secundaria de la Región de Murcia, así como la Matrícula de Honor en Bachillerato.</p>
+                <p>Actualmente muestro especial interés en la rama de programación, formándome de forma paralela a la carrera con 
+                proyectos personales (esta web es un ejemplo) orientados a un posible desarrollo profesional posterior relacionado 
+                con el ámbito de la ingeniería aeroespacial. De ellos me he nutrido principalmente con conocimientos de Python, Javascript, 
+                CSS, HTML…</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Música -->
+      <section class="section panel" aria-label="Música">
+        <div class="wrap">
+          <div class="split split-reverse">
+            <figure class="split-media" aria-hidden="true">
+              <img src="/joseandresmusica.jpg" alt="" loading="lazy" />
+            </figure>
+
+            <div class="split-text">
+              <h2>Música</h2>
+              <div class="cv">
+                <p>Estudio el Grado en Interpretación Musical, especialidad de Piano, en el Real Conservatorio Superior de Música 
+                de Madrid (RCSMM), donde me formo desde 2024 bajo la tutela de la reconocida Patrín García-Barredo, tras acceder 
+                entre los primeros clasificados en las pruebas de acceso. </p>
+                <p>Anteriormente cursé mis estudios en el Conservatorio Profesional de Música de Caravaca con Jesús Manuel Martínez 
+                Romero, obteniendo Matrícula de Honor. A lo largo de este periodo participé en diversos concursos de ámbito regional 
+                y nacional, como el Certamen Entre Cuerdas y Metales y el I Concurso Nacional de Piano de Don Benito. En el primero 
+                de ellos recibí el primer premio en la modalidad de música de cámara, así como dos terceros premios en la modalidad 
+                de piano en distintas ediciones.</p> 
+                <p>Más recientemente he obtenido el tercer premio en el I Certamen Iberia Sounds y he ofrecido conciertos en diversas 
+                salas de Murcia, Madrid y Rumanía. Además de mis profesores tutores, he complementado mi formación con clases magistrales 
+                de reconocidos pianistas y pedagogos como Antonio Baciero, Iván Martín, Lucjan Luc, Denis Lossev, Nino Kereselidze, 
+                Ángel Sanzo y Pilar Valero, entre otros.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Literatura -->
+      <section class="section" aria-label="Literatura">
+        <div class="wrap">
+          <div class="split">
+            <figure class="split-media" aria-hidden="true">
+              <img src="/joseandresliteratura.jpg" alt="" loading="lazy" />
+            </figure>
+
+            <div class="split-text">
+              <h2>Literatura</h2>
+              <div class="cv">
+                <p>Desde pequeño he vivido la literatura, el mundo de las letras y las humanidades; siempre he leído y escrito. En el 
+                colegio me dieron varios premios de escritura y dibujo escolares, pero el asunto tomó seriedad cuando llegué al instituto 
+                y gané el Premio Albacara por la modalidad de poesía: nació en mí la sensación de que podía sacar aún más provecho de esta 
+                afición.</p>
+                <p>Dos años más tarde recibí una llamada que me felicitaba por haber conseguido el primer premio en el I Certámen Nacional 
+                de Poesía Yolanda Sáenz de Tejada. A la ilusión de este le siguió el XLVII Certámen Literario María Agustina, el Concurso 
+                Nacional de Poesía Joven de La Palma, el Albaricoque de Plata, el I Concurso Internacional de Poesía Rural… Poemas míos se 
+                han publicado en la Antología Huella y Silencio y en las ediciones de cada uno de estos certámenes.</p>
+                <p>En estos momentos trabajo en la publicación de un poemario de juventud, al tiempo que mi poesía avanza en forma y 
+                contenido a un estilo de mayor vanguardia y libertad, con vista ya a obras que vayan cogiendo forma en un plazo más 
+                ambicioso.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contenido (YouTube 4 por fila) -->
+      <section class="section panel" aria-label="Contenido de José Andrés Ludeña">
+        <div class="wrap">
+          <h2>Contenido de José Andrés Ludeña</h2>
+
+          <div class="grid4" data-grid="content" data-collapsed-count={contentInitialCount}>
+            {contentItems.map((item, i) => (
+              <article class="tile" data-item={String(i)}>
+                {item.type === "youtube" ? (
+                  <div class="embed">
+                    <iframe
+                      src={`https://www.youtube-nocookie.com/embed/${item.id}`}
+                      title={item.label ?? `Vídeo ${i + 1}`}
+                      loading="lazy"
+                      referrerpolicy="strict-origin-when-cross-origin"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowfullscreen
+                    />
+                  </div>
+                ) : (
+                  <div class="photo">
+                    <img src={item.src} alt={item.label ?? `Imagen ${i + 1}`} loading="lazy" />
+                  </div>
+                )}
+              </article>
+            ))}
+          </div>
+
+          <div class="more-row">
+            <button class="more-link" type="button" data-toggle="content" aria-expanded="false">Ver más</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Artículos (4 por fila) -->
+      <section class="section" aria-label="Artículos relevantes sobre José Andrés Ludeña">
+        <div class="wrap">
+          <h2>Artículos relevantes sobre José Andrés Ludeña</h2>
+
+          <div class="grid4" data-grid="articles" data-collapsed-count={articlesInitialCount}>
+            {articleItems.map((a, i) => (
+              <a class="card" href={a.href} target={a.href.startsWith("http") ? "_blank" : undefined} rel={a.href.startsWith("http") ? "noreferrer" : undefined} data-item={String(i)}>
+                <div class="card-top">
+                  <p class="card-kicker">{a.outlet}</p>
+                  <p class="card-date">{a.date}</p>
+                </div>
+
+                <h3 class="card-title">{a.title}</h3>
+                <p class="card-excerpt">{a.excerpt}</p>
+
+                <p class="card-cta">Abrir</p>
+              </a>
+            ))}
+          </div>
+
+          <div class="more-row">
+            <button class="more-link" type="button" data-toggle="articles" aria-expanded="false">Ver más</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tienda -->
+      <section class="section panel" aria-label="Tienda">
+        <div class="wrap">
+          <h2>Tienda</h2>
+
+          <div class="grid4" data-grid="store" data-collapsed-count={storeInitialCount}>
+            {storeItems.map((p, i) => (
+              <a class="card" href={p.href} target={p.href.startsWith("http") ? "_blank" : undefined} rel={p.href.startsWith("http") ? "noreferrer" : undefined} data-item={String(i)}>
+                <div class="card-top">
+                  <p class="card-kicker">Libro</p>
+                  <p class="card-date">{p.subtitle}</p>
+                </div>
+
+                <h3 class="card-title">{p.title}</h3>
+                <p class="card-excerpt">{p.description}</p>
+
+                <p class="card-cta">Comprar</p>
+              </a>
+            ))}
+          </div>
+
+          <div class="more-row">
+            <button class="more-link" type="button" data-toggle="store" aria-expanded="false">Ver más</button>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="wrap footer-wrap">
+          <p>© {new Date().getFullYear()} Hermanos Ludeña Martínez</p>
+        </div>
+      </footer>
+    </main>
+
+    <script>
+      // Colapsables "Ver más" para grids (content/articles/store)
+      (() => {
+        const applyGrid = (gridName) => {
+          const grid = document.querySelector(`[data-grid="${gridName}"]`);
+          const btn = document.querySelector(`[data-toggle="${gridName}"]`);
+          if (!grid || !btn) return;
+
+          const collapsedCount = Number(grid.getAttribute("data-collapsed-count") || "8");
+
+          const apply = (expanded) => {
+            const items = grid.querySelectorAll("[data-item]");
+            items.forEach((el, i) => {
+              const hide = !expanded && i >= collapsedCount;
+              el.toggleAttribute("hidden", hide);
+            });
+
+            btn.setAttribute("aria-expanded", expanded ? "true" : "false");
+            btn.textContent = expanded ? "Ver menos" : "Ver más";
+          };
+
+          apply(false);
+
+          btn.addEventListener("click", () => {
+            const expanded = btn.getAttribute("aria-expanded") === "true";
+            apply(!expanded);
+          });
+        };
+
+        ["content", "articles", "store"].forEach(applyGrid);
+      })();
+    </script>
+
+    <style>
+      /* Base visual coherente con el index (variables, sidebar y botones) */
+      :root{
+        --bg: #212121;
+        --panel: #181818;
+        --text: rgba(255,255,255,0.92);
+        --muted: rgba(255,255,255,0.68);
+        --shadow: 0 22px 70px rgba(0,0,0,0.55);
+        --radius: 18px;
+
+        --sidebarW: 104px;
+        --iconBox: 56px;
+        --iconSize: 28px;
+      }
+
+      *{ box-sizing: border-box; }
+      html, body{ height: 100%; }
+
+      body{
+        margin:0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+        letter-spacing: 0.2px;
+      }
+
+      a{ color: inherit; text-decoration: none; }
+
+      .wrap{
+        width: min(1120px, calc(100% - 52px));
+        margin: 0 auto;
+      }
+
+      .main{ margin-left: var(--sidebarW); }
+
+      .section{ padding: 74px 0; }
+      .panel{ background: var(--panel); border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); }
+
+      /* Sidebar */
+      .sidebar{
+        position: fixed;
+        inset: 0 auto 0 0;
+        width: var(--sidebarW);
+        background: var(--panel);
+        border-right: 1px solid rgba(255,255,255,0.08);
+        z-index: 50;
+      }
+
+      .sidebar-inner{
+        height: 100%;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        padding: 16px 14px;
+        gap: 16px;
+      }
+
+      .lm{
+        display: grid;
+        place-items: center;
+        height: 74px;
+        border-radius: 16px;
+        background: rgba(255,255,255,0.04);
+        outline: 1px solid rgba(255,255,255,0.08);
+        transition: transform 160ms ease, background 160ms ease, outline-color 160ms ease;
+      }
+
+      .lm:hover{
+        transform: translateY(-1px);
+        background: rgba(255,255,255,0.06);
+        outline-color: rgba(255,255,255,0.16);
+      }
+
+      .lm-img{
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+        display: block;
+      }
+
+      .iconnav{
+        display: grid;
+        align-content: start;
+        justify-items: center;
+        gap: 14px;
+        padding-top: 6px;
+      }
+
+      .iconlink{
+        width: var(--iconBox);
+        height: var(--iconBox);
+        border-radius: 16px;
+        display: grid;
+        place-items: center;
+        background: rgba(255,255,255,0.04);
+        outline: 1px solid rgba(255,255,255,0.08);
+        transition: transform 160ms ease, background 160ms ease, outline-color 160ms ease;
+      }
+
+      .iconlink:hover{
+        transform: translateY(-1px);
+        background: rgba(255,255,255,0.06);
+        outline-color: rgba(255,255,255,0.18);
+      }
+
+      .iconlink[data-active="true"]{
+        background: rgba(255,255,255,0.08);
+        outline-color: rgba(255,255,255,0.18);
+      }
+
+      .iconlink img{
+        width: var(--iconSize);
+        height: var(--iconSize);
+        object-fit: contain;
+        display: block;
+      }
+
+      .divider{
+        width: 44px;
+        height: 1px;
+        background: rgba(255,255,255,0.12);
+        margin: 8px 0;
+      }
+
+      .sidebar-foot{ height: 10px; }
+
+      /* Cabecera */
+      .pagehead{ padding-top: 56px; }
+      .pagehead-wrap{ display: grid; gap: 18px; }
+
+      .pagehead-title{ display: grid; gap: 12px; }
+
+      .page-title{
+        margin: 0;
+        font-size: clamp(30px, 4.6vw, 44px);
+        line-height: 1.05;
+        letter-spacing: 0.02em;
+        font-weight: 600;
+      }
+
+      .rule{
+        height: 2px;
+        width: clamp(240px, 62%, 560px);
+        background: linear-gradient(90deg, rgba(255,255,255,0.55), rgba(255,255,255,0.0));
+        border-radius: 999px;
+      }
+
+      .sublead{
+        margin: 0;
+        color: rgba(255,255,255,0.70);
+        line-height: 1.8;
+        max-width: 90ch;
+      }
+
+      h2{
+        margin: 0 0 14px;
+        font-size: clamp(22px, 3vw, 30px);
+        letter-spacing: 0.02em;
+      }
+
+      /* Secciones split (foto + texto) */
+      .split{
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 22px;
+        align-items: start;
+      }
+
+      .split-reverse{
+        grid-template-columns: 1.2fr 1fr;
+      }
+
+      .split-reverse .split-media{
+        order: 2;
+      }
+
+      .split-media{
+        margin: 0;
+        border-radius: var(--radius);
+        overflow: hidden;
+        outline: 1px solid rgba(255,255,255,0.10);
+        background: #111;
+        box-shadow: var(--shadow);
+      }
+
+      .split-media img{
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+        aspect-ratio: 4 / 3;
+      }
+
+      /* Imagen a tamaño natural (Ingeniería) */
+      .split-media-natural{
+        overflow: visible;     /* deja respirar a la imagen */
+      }
+
+      .split-media-natural img{
+        width: 100%;
+        height: auto;          /* clave: altura natural */
+        aspect-ratio: auto;   /* elimina proporción forzada */
+        object-fit: contain;  /* sin recortes */
+      }
+
+      .split-text{
+        padding-top: 2px;
+      }
+
+      .cv{
+        color: rgba(255,255,255,0.70);
+        line-height: 1.8;
+      }
+
+      .cv p{ margin: 0 0 10px; }
+      .cv ul{ margin: 0; padding-left: 18px; }
+      .cv li{ margin: 8px 0; }
+
+      /* Grids 4 por fila */
+      .grid4{
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        margin-top: 10px;
+      }
+
+      /* Tiles de vídeo/foto */
+      .tile{
+        border-radius: var(--radius);
+        overflow: hidden;
+        outline: 1px solid rgba(255,255,255,0.10);
+        background: #111;
+        box-shadow: var(--shadow);
+      }
+
+      .embed{
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        background: #000;
+      }
+
+      .embed iframe{
+        width: 100%;
+        height: 100%;
+        border: 0;
+        display: block;
+      }
+
+      .photo img{
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+      }
+
+      /* Cards (artículos / tienda) */
+      .card{
+        border-radius: var(--radius);
+        background: rgba(255,255,255,0.04);
+        outline: 1px solid rgba(255,255,255,0.10);
+        padding: 14px 14px 12px;
+        display: grid;
+        gap: 10px;
+        min-height: 210px;
+        transition: transform 160ms ease, background 160ms ease, outline-color 160ms ease;
+      }
+
+      .card:hover{
+        transform: translateY(-1px);
+        background: rgba(255,255,255,0.06);
+        outline-color: rgba(255,255,255,0.18);
+      }
+
+      .card-top{
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        align-items: baseline;
+      }
+
+      .card-kicker{
+        margin: 0;
+        color: rgba(255,255,255,0.62);
+        font-size: 12px;
+        letter-spacing: 0.03em;
+      }
+
+      .card-date{
+        margin: 0;
+        color: rgba(255,255,255,0.52);
+        font-size: 12px;
+      }
+
+      .card-title{
+        margin: 0;
+        font-size: 14px;
+        letter-spacing: 0.02em;
+        color: rgba(255,255,255,0.92);
+        line-height: 1.4;
+      }
+
+      .card-excerpt{
+        margin: 0;
+        color: rgba(255,255,255,0.70);
+        line-height: 1.7;
+        font-size: 13px;
+      }
+
+      .card-cta{
+        margin: 0;
+        color: rgba(255,255,255,0.80);
+        font-size: 13px;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+
+      /* Botón Ver más */
+      .more-row{
+        margin-top: 18px;
+        display: grid;
+        justify-items: start;
+      }
+
+      .more-link{
+        display: inline-flex;
+        align-items: center;
+        height: 40px;
+        padding: 0 14px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.06);
+        outline: 1px solid rgba(255,255,255,0.10);
+        color: rgba(255,255,255,0.86);
+        transition: transform 160ms ease, background 160ms ease, outline-color 160ms ease;
+        border: 0;
+        cursor: pointer;
+      }
+
+      .more-link:hover{
+        transform: translateY(-1px);
+        background: rgba(255,255,255,0.09);
+        outline-color: rgba(255,255,255,0.18);
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+
+      /* Footer */
+      .footer{
+        padding: 30px 0 44px;
+        color: rgba(255,255,255,0.58);
+      }
+
+      .footer-wrap{
+        border-top: 1px solid rgba(255,255,255,0.08);
+        padding-top: 16px;
+      }
+
+      /* Responsive */
+      @media (max-width: 1100px){
+        .grid4{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+
+      @media (max-width: 980px){
+        .split,
+        .split-reverse{
+          grid-template-columns: 1fr;
+        }
+        .split-reverse .split-media{ order: 0; }
+      }
+
+      @media (max-width: 640px){
+        .grid4{ grid-template-columns: 1fr; }
+      }
+
+      @media (max-width: 520px){
+        :root{
+          --sidebarW: 92px;
+          --iconBox: 54px;
+          --iconSize: 28px;
+        }
+        .wrap{ width: min(1120px, calc(100% - 34px)); }
+      }
+    </style>
   </body>
 </html>
